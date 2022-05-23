@@ -1,0 +1,54 @@
+import * as readline from 'readline'
+
+import { stdin as input, stdout as output } from 'process'
+
+const rl = readline.createInterface({ input, output })
+
+const question = q => new Promise((rs, rj) => rl.question(q + ' ', a => rs(a)))
+
+let media = 0
+
+let soma = 0
+
+let count = 0
+
+let nota
+
+while (true) {
+    let strNota = await question(`Coloque o valor da ${count + 1}° nota ou N/n para cacular a média entre os numeros colocados:`)
+
+
+    if (strNota.toUpperCase() == 'N') {
+        break
+    }
+
+    nota = parseFloat(strNota)
+
+
+    if (isNaN(nota)) {
+        console.log("Coloque um numero")
+        continue
+    }
+
+
+    if (nota < 0 || nota > 10) {
+        console.log("Coloque um numero de 0 a 10")
+        continue
+    }
+
+    
+    soma = soma + nota
+    count++
+}
+
+
+media = soma / count
+
+
+if (count == 0) {
+    console.log("Não existem valores válidos")
+} else {
+    console.log(`[ RESULTADO ] A média do conjunto de numeros ditos é`, media)
+}
+
+process.exit()
